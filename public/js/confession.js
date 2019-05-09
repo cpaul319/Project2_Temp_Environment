@@ -30,7 +30,7 @@ $(document).ready(function() {
     if (confessionId) {
       confessionId = "/?confession_id=" + confessionId;
     }
-    $.get("/api/posts" + confessionId, function(data) {
+    $.get("/api/confessions" + confessionId, function(data) {
       console.log("Posts", data);
       posts = data;
       if (!posts || !posts.length) {
@@ -46,7 +46,7 @@ $(document).ready(function() {
   function deletePost(id) {
     $.ajax({
       method: "DELETE",
-      url: "/api/posts/" + id
+      url: "/api/confessions/" + id
     })
       .then(function() {
         getPosts(postCategorySelect.val());
@@ -110,7 +110,7 @@ $(document).ready(function() {
     var currentPost = $(this)
       .parent()
       .parent()
-      .data("post");
+      .data("confession");
     deletePost(currentPost.id);
   }
 
@@ -119,7 +119,7 @@ $(document).ready(function() {
     var currentPost = $(this)
       .parent()
       .parent()
-      .data("post");
+      .data("confession");
     window.location.href = "/cms?post_id=" + currentPost.id;
   }
 

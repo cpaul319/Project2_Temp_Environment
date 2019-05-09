@@ -9,7 +9,7 @@ $(document).ready(function() {
   var userContainer = $(".user-container");
   // Adding event listeners to the form to create a new object, and the button to delete
   // an user
-  $(document).on("submit", "#signUp-user", handleuserFormSubmit);
+  $(document).on("click", "#signUp-user", handleuserFormSubmit);
   $(document).on("click", ".delete-user", handleDeleteButtonPress);
 
   // Getting the initial list of users
@@ -19,11 +19,12 @@ $(document).ready(function() {
   function handleuserFormSubmit(event) {
     event.preventDefault();
     // Don't do anything if the name fields hasn't been filled out
-    if (!firstNameInput.val().trim().trim()&& lastNameInput.val().trim()
-    && emailInput.val().trim()&& passwordInput.val().trim() ) {
-        console.log
+    if (!firstNameInput.val().trim().trim() && !lastNameInput.val().trim()
+     && !emailInput.val().trim()&& !passwordInput.val().trim() ) {
+        console.log(firstNameInput);
       return;
     }
+    
     // Calling the upsertuser function and passing in the value of the name input
     upsertuser({
       firstName: firstNameInput.val().trim(),
@@ -36,7 +37,7 @@ $(document).ready(function() {
 
   // A function for creating an user. Calls getusers upon completion
   function upsertuser(userData) {
-    $.post("/api/user", userData)
+    $.post("/api/users", userData)
       .then(getusers);
   }
 
@@ -58,7 +59,7 @@ $(document).ready(function() {
 
   // Function for retrieving users and getting them ready to be rendered to the page
   function getusers() {
-    $.get("/api/user", function(data) {
+    $.get("/api/users", function(data) {
       var rowsToAdd = [];
       for (var i = 0; i < data.length; i++) {
         rowsToAdd.push(createuserRow(data[i]));
@@ -95,7 +96,7 @@ $(document).ready(function() {
     var id = listItemData.id;
     $.ajax({
       method: "DELETE",
-      url: "/api/user/" + id
+      url: "/api/usesrs/" + id
     })
       .then(getusers);
   }

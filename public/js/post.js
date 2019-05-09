@@ -18,13 +18,13 @@ $(document).ready(function() {
         }
         // Calling the upsertconfession function and passing in the value of the name input
         upsertConfession({
-          confession: confessionInput.val().trim(),
           confession: confessionInput.val().trim()
+          // confession: confessionInput.val().trim()
         });
         console.log("confessioninput" + confessionInput);
       }
       function upsertConfession(confessionData) {
-        $.post("/api/confession", confessionData)
+        $.post("/api/confessions", confessionData)
           .then(getConfession);
 
 
@@ -44,7 +44,7 @@ $(document).ready(function() {
         return newTr;
       }
       function getConfession() {
-        $.get("/api/confession", function(data) {
+        $.get("/api/confessions", function(data) {
           var rowsToAdd = [];
           for (var i = 0; i < data.length; i++) {
             rowsToAdd.push(createConfessionRow(data[i]));
