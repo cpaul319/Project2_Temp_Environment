@@ -38,20 +38,12 @@ body {
     color:white;
     text-shadow: 1px 1px 2px black;
   }
-  .btn{
-      /* float: left; */
+  .btn {
     background-color: rgba(98, 1, 143, 0.87);
-    color: white;
-    text-shadow: 1px 1px 2px black;
+    color: white; 
+    text-shadow: 1px 1px 2px black; 
   }
-  .btn-default{
-     
-      width: 170px;
-    /* float: left; */
-  background-color: rgba(98, 1, 143, 0.87);
-  color: white;
-  text-shadow: 1px 1px 2px black;
-}
+
   /* .navbar{
     background-color: rgba(255, 255, 255, 0.5);  
   } */
@@ -102,17 +94,30 @@ body {
     box-sizing: initial;
     display: grid;
     grid-template-columns:auto auto auto;
-    grid-gap: 10px;
+    grid-gap: 5px;
     grid-column-gap: 20px;
-     padding: 10px;
-     background-color: rgba(255, 255, 255, 0.1);
-     grid-template-rows: auto auto auto;
-     grid-template-columns: 37% 20% 40%;
-     grid-auto-columns:auto;
-     text-align: center;
-     font-size: 30px;
-     padding: 10px 5px;
-     margin: 0px;
+    padding: 0px;
+    grid-template-rows: auto;
+    /* grid-template-columns: 38% 20% 38%; */
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-auto-columns:auto;
+    text-align: center;
+    font-size: 30px;
+    margin: 50px;
   }
   
-  
+  a:hover{
+    color:plum;
+  }
+  a {
+    color:white;
+    text-shadow: 1px 1px 2px black;
+  }
+.card-title{
+  align-self: baseline;
+}
+  .minibox {
+    
+    height: 350px;
+    width:auto;
+  }  

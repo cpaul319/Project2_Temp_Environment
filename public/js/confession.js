@@ -2,7 +2,7 @@ $(document).ready(function() {
   /* global moment */
 
   // blogContainer holds all of our posts
-  var blogContainer = $(".blog-container");
+  var blogContainer = $("#post");
   var postCategorySelect = $("#category");
   // Click events for the edit and delete buttons
   $(document).on("click", "button.delete", handlePostDelete);
@@ -10,31 +10,31 @@ $(document).ready(function() {
   // Variable to hold our posts
   var posts;
 
-  // The code below handles the case where we want to get blog posts for a specific author
-  // Looks for a query param in the url for author_id
-  var url = window.location.search;
-  var authorId;
-  if (url.indexOf("?author_id=") !== -1) {
-    authorId = url.split("=")[1];
-    getPosts(authorId);
-  }
-  // If there's no authorId we just get all posts as usual
-  else {
-    getPosts();
-  }
-  
+  // The code below handles the case where we want to get blog posts for a specific confession
+  // Looks for a query param in the url for confession_id
+  // var url = window.location.search;
+  // var confessionId;
+  // if (url.indexOf("?confession_id=") !== -1) {
+  //   confessionId = url.split("=")[1];
+  //   getPosts(confessionId);
+  // }
+  // If there's no confessionId we just get all posts as usual
+  // else {
+  //   getPosts();
+  // }
 
+  getPosts();
   // This function grabs posts from the database and updates the view
-  function getPosts(author) {
-    authorId = author || "";
-    if (authorId) {
-      authorId = "/?author_id=" + authorId;
+  function getPosts(confession) {
+    confessionId = confession || "";
+    if (confessionId) {
+      confessionId = "/?confession_id=" + confessionId;
     }
-    $.get("/api/posts" + authorId, function(data) {
+    $.get("/api/posts" + confessionId, function(data) {
       console.log("Posts", data);
       posts = data;
       if (!posts || !posts.length) {
-        displayEmpty(author);
+        displayEmpty(confession);
       }
       else {
         initializeRows();
@@ -79,11 +79,11 @@ $(document).ready(function() {
     editBtn.addClass("edit btn btn-info");
     var newPostTitle = $("<h2>");
     var newPostDate = $("<small>");
-    var newPostAuthor = $("<h5>");
-    newPostAuthor.text("Written by: " + post.Author.name);
-    newPostAuthor.css({
-      float: "right",
-      color: "blue",
+    var newPostconfession = $("<h5>");
+    newPostconfession.text("Written by: " + post.confession.name);
+    newPostconfession.css({
+      // float: "right",
+      color: "white",
       "margin-top":
       "-10px"
     });
@@ -97,7 +97,7 @@ $(document).ready(function() {
     newPostCardHeading.append(deleteBtn);
     newPostCardHeading.append(editBtn);
     newPostCardHeading.append(newPostTitle);
-    newPostCardHeading.append(newPostAuthor);
+    newPostCardHeading.append(newPostconfession);
     newPostCardBody.append(newPostBody);
     newPostCard.append(newPostCardHeading);
     newPostCard.append(newPostCardBody);
@@ -128,7 +128,7 @@ $(document).ready(function() {
     var query = window.location.search;
     var partial = "";
     if (id) {
-      partial = " for Author #" + id;
+      partial = " for confession #" + id;
     }
     blogContainer.empty();
     var messageH2 = $("<h2>");

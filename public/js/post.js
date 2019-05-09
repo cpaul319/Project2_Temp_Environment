@@ -3,7 +3,7 @@ $(document).ready(function() {
     var confessionInput = $("#message-text");
 
     var confessionList = $("tbody");
-  var confessionContainer = $(".confession-container");
+  var confessionContainer = $("#confession-container");
 
     $(document).on("click", "#save-confession", handleConfessionFormClick);
     console.log("this button works");
@@ -67,12 +67,11 @@ $(document).ready(function() {
       }
       function renderEmpty() {
         var alertDiv = $("<div>");
-        alertDiv.addClass("alert alert-danger");
-        alertDiv.text("You must create an Author before you can create a Post.");
+        // alertDiv.addClass("alert alert-danger");
+        // alertDiv.text("You must create an Author before you can create a Post.");
         confessionContainer.append(alertDiv);
       }
      
       getConfession();
-    
 
 });

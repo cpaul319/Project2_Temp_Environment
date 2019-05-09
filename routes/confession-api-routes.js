@@ -41,5 +41,16 @@ module.exports = function(app) {
       res.json(dbConfession);
     });
   });
+  app.put("/api/confessions", function(req, res) {
+    db.Confession.update(
+      req.body,
+      {
+        where: {
+          id: req.body.id
+        }
+      }).then(function(dbConfession) {
+      res.json(dbConfession);
+    });
+  });
 
 };
