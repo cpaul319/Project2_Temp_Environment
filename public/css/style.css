@@ -1,0 +1,118 @@
+body {
+    /* box-sizing: border-box; */
+    background-image: url("https://media.gettyimages.com/photos/catholic-confession-booth-with-a-purple-curtain-picture-id157295783");
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+}
+.navbar {
+    /* height: 30px; */
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: rgba(66, 0, 92, 0.383);
+    box-shadow: 5px 5px 18px black;
+    text-shadow: 1px 1px 2px black;
+    color:white;
+    font-family: 'Franklin Gothic Medium',  sans-serif;
+  }
+  
+  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+  .row.content {height: 0px;}
+
+  .pastPosts{
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    /* width: 150px;
+    height: 150px; */
+    
+  }
+  
+  /* Set gray background color and 100% height */
+  .sidenav {
+    background-color: rgba(66, 0, 92, 0.383);
+    box-shadow: 5px 5px 18px black;
+    margin-top: 130px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 10px;
+    color:white;
+    text-shadow: 1px 1px 2px black;
+  }
+  .btn{
+      /* float: left; */
+    background-color: rgba(98, 1, 143, 0.87);
+    color: white;
+    text-shadow: 1px 1px 2px black;
+  }
+  .btn-default{
+     
+      width: 170px;
+    /* float: left; */
+  background-color: rgba(98, 1, 143, 0.87);
+  color: white;
+  text-shadow: 1px 1px 2px black;
+}
+  /* .navbar{
+    background-color: rgba(255, 255, 255, 0.5);  
+  } */
+  .card{
+    background-color: rgba(66, 0, 92, 0.383);
+  }
+ 
+ 
+  /* Set black background color, white text and some padding */
+  footer {
+      text-align: center;
+      color: white;
+      text-shadow: 1px 1px 2px black;
+    background-color: rgba(97, 13, 146, 0.657);
+    box-shadow: 5px 5px 18px black;
+  }
+  .container-fluid{
+    background-color: rgba(82, 0, 129, 0.3);
+  }
+  
+  /* On small screens, set height to 'auto' for sidenav and grid */
+  @media screen and (max-width: 767px) {
+    .sidenav {
+      height: auto;
+      padding: 15px;
+    }
+    .row.content {height:auto;} 
+  }
+  
+  .item1, .item3 {
+    background-color: rgba(106, 5, 173, 0.3);
+    color:white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+    box-shadow: 5px 10px 18px black;
+  }
+  .item2 { 
+    background-color: rgba(254, 253, 255, 0.3);
+   
+    text-align: center;
+    box-shadow: 5px 10px 18px black;
+    padding: 50px 0;
+    font-size: 30px; 
+  }
+ 
+  .grid-container {
+    box-sizing: initial;
+    display: grid;
+    grid-template-columns:auto auto auto;
+    grid-gap: 10px;
+    grid-column-gap: 20px;
+     padding: 10px;
+     background-color: rgba(255, 255, 255, 0.1);
+     grid-template-rows: auto auto auto;
+     grid-template-columns: 37% 20% 40%;
+     grid-auto-columns:auto;
+     text-align: center;
+     font-size: 30px;
+     padding: 10px 5px;
+     margin: 0px;
+  }
+  
+  
