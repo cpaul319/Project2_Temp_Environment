@@ -1,11 +1,15 @@
 $(document).ready(function() {
   // Getting references to the name input and user container, as well as the table body
-  var nameInput = $("#user-name");
+  var firstNameInput = $("#user-firstName");
+  var lastNameInput = $("#user-lastName");
+  var emailInput = $("#user-email");
+  var passwordInput = $("#user-password");
+ 
   var userList = $("tbody");
   var userContainer = $(".user-container");
   // Adding event listeners to the form to create a new object, and the button to delete
   // an user
-  $(document).on("submit", "#user-form", handleuserFormSubmit);
+  $(document).on("submit", "#signUp-user", handleuserFormSubmit);
   $(document).on("click", ".delete-user", handleDeleteButtonPress);
 
   // Getting the initial list of users
@@ -15,7 +19,9 @@ $(document).ready(function() {
   function handleuserFormSubmit(event) {
     event.preventDefault();
     // Don't do anything if the name fields hasn't been filled out
-    if (!nameInput.val().trim().trim()) {
+    if (!firstNameInput.val().trim().trim()&& lastNameInput.val().trim()
+    && emailInput.val().trim()&& passwordInput.val().trim() ) {
+        console.log
       return;
     }
     // Calling the upsertuser function and passing in the value of the name input
@@ -24,12 +30,13 @@ $(document).ready(function() {
       lastName: lastNameInput.val().trim(),
       email: emailInput.val().trim(),
       password: passwordInput.val().trim()
+      
     });
   }
 
   // A function for creating an user. Calls getusers upon completion
   function upsertuser(userData) {
-    $.post("/api/users", userData)
+    $.post("/api/user", userData)
       .then(getusers);
   }
 
@@ -51,13 +58,13 @@ $(document).ready(function() {
 
   // Function for retrieving users and getting them ready to be rendered to the page
   function getusers() {
-    $.get("/api/users", function(data) {
+    $.get("/api/user", function(data) {
       var rowsToAdd = [];
       for (var i = 0; i < data.length; i++) {
         rowsToAdd.push(createuserRow(data[i]));
       }
       renderuserList(rowsToAdd);
-      nameInput.val("");
+      firstNameInput.val("");
     });
   }
 
@@ -88,7 +95,7 @@ $(document).ready(function() {
     var id = listItemData.id;
     $.ajax({
       method: "DELETE",
-      url: "/api/users/" + id
+      url: "/api/user/" + id
     })
       .then(getusers);
   }

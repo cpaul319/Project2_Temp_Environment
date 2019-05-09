@@ -1,8 +1,8 @@
 $(document).ready(function() {
   /* global moment */
 
-  // blogContainer holds all of our posts
-  var blogContainer = $("#post");
+  // confessionContainer holds all of our posts
+  var confessionContainer = $("#confession-container");
   var postCategorySelect = $("#category");
   // Click events for the edit and delete buttons
   $(document).on("click", "button.delete", handlePostDelete);
@@ -53,14 +53,14 @@ $(document).ready(function() {
       });
   }
 
-  // InitializeRows handles appending all of our constructed post HTML inside blogContainer
+  // InitializeRows handles appending all of our constructed post HTML inside confessionContainer
   function initializeRows() {
-    blogContainer.empty();
+    confessionContainer.empty();
     var postsToAdd = [];
     for (var i = 0; i < posts.length; i++) {
       postsToAdd.push(createNewRow(posts[i]));
     }
-    blogContainer.append(postsToAdd);
+    confessionContainer.append(postsToAdd);
   }
 
   // This function constructs a post's HTML
@@ -80,7 +80,7 @@ $(document).ready(function() {
     var newPostTitle = $("<h2>");
     var newPostDate = $("<small>");
     var newPostconfession = $("<h5>");
-    newPostconfession.text("Written by: " + post.confession.name);
+    newPostconfession.text("Written by: " + post.user.firstName);
     newPostconfession.css({
       // float: "right",
       color: "white",
@@ -130,12 +130,12 @@ $(document).ready(function() {
     if (id) {
       partial = " for confession #" + id;
     }
-    blogContainer.empty();
+    confessionContainer.empty();
     var messageH2 = $("<h2>");
     messageH2.css({ "text-align": "center", "margin-top": "50px" });
     // messageH2.html("No posts yet" + partial + ", navigate <a href='/cms" + query +
     // "'>here</a> in order to get started.");
-    blogContainer.append(messageH2);
+    confessionContainer.append(messageH2);
   }
 
 });
