@@ -1,7 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
   var Confession = sequelize.define("Confession", {
-    // Giving the Confession model a name of type STRING
-    name: DataTypes.STRING
+    // Giving the Confession model a name of type TEXT
+    confession: DataTypes.TEXT,
+    isItTrue: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    }
   });
 
   Confession.associate = function(models) {

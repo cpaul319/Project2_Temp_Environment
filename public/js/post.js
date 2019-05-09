@@ -18,7 +18,7 @@ $(document).ready(function() {
         }
         // Calling the upsertconfession function and passing in the value of the name input
         upsertConfession({
-          name: confessionInput
+          confession: confessionInput
             .val()
             .trim()
         });

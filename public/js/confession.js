@@ -18,7 +18,7 @@ $(document).ready(function() {
   //   confessionId = url.split("=")[1];
   //   getPosts(confessionId);
   // }
-  // If there's no confessionId we just get all posts as usual
+  // // If there's no confessionId we just get all posts as usual
   // else {
   //   getPosts();
   // }
