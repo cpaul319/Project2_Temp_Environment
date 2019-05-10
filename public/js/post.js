@@ -3,7 +3,7 @@ $(document).ready(function () {
   var confessionInput = $("#message-text");
   var isItTrueInput = $("#inlineRadio1");
   var isItFalseInput = $("#inlineRadio2");
-  var confessionList = $("tbody");
+  var confessionList = $("card-body");
   var confessionContainer = $("#confession-container");
 
   $(document).on("click", "#save-confession", handleConfessionFormClick);
@@ -24,11 +24,24 @@ $(document).ready(function () {
       isItFalse: isItFalseInput.val().trim()
     });
     console.log("confessioninput" + confessionInput);
+    initializeRows();
   }
   function upsertConfession(confessionData) {
     $.post("/api/confessions", confessionData)
       .then(getConfession);
 
+
+  }
+
+  function initializeRows() {
+    confessionContainer.empty();
+    var postsToAdd = [];
+    for (var i = 0; i < posts.length; i++) {
+      postsToAdd.push(createNewRow(posts[i]));
+    }
+
+    confessionContainer.append(postsToAdd);
+    confessionContainer.text(posts);
 
   }
   function createConfessionRow(confessionData) {
@@ -59,7 +72,7 @@ $(document).ready(function () {
     confessionList.children().not(":last").remove();
     confessionContainer.children(".alert").remove();
     if (rows.length) {
-      console.log(rows);
+      console.log(confession);
       confessionList.prepend(rows);
     }
     else {

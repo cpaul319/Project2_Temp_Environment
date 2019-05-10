@@ -1,40 +1,40 @@
 $(document).ready(function() {
   /* global moment */
 
-  // blogContainer holds all of our posts
+  // blogContainer holds all of our confessions
   var blogContainer = $(".blog-container");
-  var postCategorySelect = $("#category");
+  var confessionCategorySelect = $("#category");
   // Click events for the edit and delete buttons
-  $(document).on("click", "button.delete", handlePostDelete);
-  $(document).on("click", "button.edit", handlePostEdit);
-  // Variable to hold our posts
-  var posts;
+  $(document).on("click", "button.delete", handleConfessionDelete);
+  $(document).on("click", "button.edit", handleConfessionEdit);
+  // Variable to hold our confessions
+  var confessions;
 
-  // The code below handles the case where we want to get blog posts for a specific author
-  // Looks for a query param in the url for author_id
+  // The code below handles the case where we want to get blog confessions for a specific user
+  // Looks for a query param in the url for user_id
   var url = window.location.search;
-  var authorId;
-  if (url.indexOf("?author_id=") !== -1) {
-    authorId = url.split("=")[1];
-    getPosts(authorId);
+  var userId;
+  if (url.indexOf("?user_id=") !== -1) {
+    userId = url.split("=")[1];
+    getConfessions(userId);
   }
-  // If there's no authorId we just get all posts as usual
+  // If there's no userId we just get all confessions as usual
   else {
-    getPosts();
+    getConfessions();
   }
-  
 
-  // This function grabs posts from the database and updates the view
-  function getPosts(author) {
-    authorId = author || "";
-    if (authorId) {
-      authorId = "/?author_id=" + authorId;
+
+  // This function grabs confessions from the database and updates the view
+  function getConfessions(user) {
+    userId = user || "";
+    if (userId) {
+      userId = "/?user_id=" + userId;
     }
-    $.get("/api/posts" + authorId, function(data) {
-      console.log("Posts", data);
-      posts = data;
-      if (!posts || !posts.length) {
-        displayEmpty(author);
+    $.get("api/confessions" + userId, function(data) {
+      console.log("Confessions", data);
+      confessions = data;
+      if (!confessions || !confessions.length) {
+        displayEmpty(user);
       }
       else {
         initializeRows();
@@ -42,100 +42,101 @@ $(document).ready(function() {
     });
   }
 
-  // This function does an API call to delete posts
-  function deletePost(id) {
+  // This function does an API call to delete confessions
+  function deleteConfession(id) {
     $.ajax({
       method: "DELETE",
-      url: "/api/posts/" + id
+      url: "/api/confessions/" + id
     })
       .then(function() {
-        getPosts(postCategorySelect.val());
+        getConfessions(confessionCategorySelect.val());
       });
   }
 
-  // InitializeRows handles appending all of our constructed post HTML inside blogContainer
+  // InitializeRows handles appending all of our constructed confession HTML inside blogContainer
   function initializeRows() {
     blogContainer.empty();
-    var postsToAdd = [];
-    for (var i = 0; i < posts.length; i++) {
-      postsToAdd.push(createNewRow(posts[i]));
+    var confessionsToAdd = [];
+    for (var i = 0; i < confessions.length; i++) {
+      confessionsToAdd.push(createNewRow(confessions[i]));
     }
-    blogContainer.append(postsToAdd);
+    blogContainer.append(confessionsToAdd);
   }
 
-  // This function constructs a post's HTML
-  function createNewRow(post) {
-    var formattedDate = new Date(post.createdAt);
+  // This function constructs a confession's HTML
+  function createNewRow(confession) {
+    var formattedDate = new Date(confession.createdAt);
     formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-    var newPostCard = $("<div>");
-    newPostCard.addClass("card");
-    var newPostCardHeading = $("<div>");
-    newPostCardHeading.addClass("card-header");
+    var newConfessionCard = $("<div>");
+    newConfessionCard.addClass("card");
+    var newConfessionCardHeading = $("<div>");
+    newConfessionCardHeading.addClass("card-header");
     var deleteBtn = $("<button>");
     deleteBtn.text("x");
     deleteBtn.addClass("delete btn btn-danger");
     var editBtn = $("<button>");
     editBtn.text("EDIT");
     editBtn.addClass("edit btn btn-info");
-    var newPostTitle = $("<h2>");
-    var newPostDate = $("<small>");
-    var newPostAuthor = $("<h5>");
-    newPostAuthor.text("Written by: " + post.Author.name);
-    newPostAuthor.css({
+    var newConfessionTitle = $("<h2>");
+    var newConfessionDate = $("<small>");
+    var newConfessionUser = $("<h5>");
+    newConfessionUser.text("Written by: " + confession.User.firstname);
+    newConfessionUser.css({
       float: "right",
       color: "blue",
       "margin-top":
       "-10px"
     });
-    var newPostCardBody = $("<div>");
-    newPostCardBody.addClass("card-body");
-    var newPostBody = $("<p>");
-    newPostTitle.text(post.title + " ");
-    newPostBody.text(post.body);
-    newPostDate.text(formattedDate);
-    newPostTitle.append(newPostDate);
-    newPostCardHeading.append(deleteBtn);
-    newPostCardHeading.append(editBtn);
-    newPostCardHeading.append(newPostTitle);
-    newPostCardHeading.append(newPostAuthor);
-    newPostCardBody.append(newPostBody);
-    newPostCard.append(newPostCardHeading);
-    newPostCard.append(newPostCardBody);
-    newPostCard.data("post", post);
-    return newPostCard;
+    var newConfessionCardBody = $("<div>");
+    newConfessionCardBody.addClass("card-body");
+    var newConfessionBody = $("<p>");
+    newConfessionTitle.text(confession.title + " ");
+    newConfessionBody.text(confession.body);
+    newConfessionDate.text(formattedDate);
+    newConfessionTitle.append(newConfessionDate);
+    newConfessionCardHeading.append(deleteBtn);
+    newConfessionCardHeading.append(editBtn);
+    newConfessionCardHeading.append(newConfessionTitle);
+    newConfessionCardHeading.append(newConfessionUser);
+    newConfessionCardBody.append(newConfessionBody);
+    newConfessionCard.append(newConfessionCardHeading);
+    newConfessionCard.append(newConfessionCardBody);
+    newConfessionCard.data("confession", confession);
+    return newConfessionCard;
   }
 
-  // This function figures out which post we want to delete and then calls deletePost
-  function handlePostDelete() {
-    var currentPost = $(this)
+  // This function figures out which confession we want to delete and then calls deleteConfession
+  function handleConfessionDelete() {
+    var currentConfession = $(this)
       .parent()
       .parent()
-      .data("post");
-    deletePost(currentPost.id);
+      .data("confession");
+    deleteConfession(currentConfession.id);
   }
 
-  // This function figures out which post we want to edit and takes it to the appropriate url
-  function handlePostEdit() {
-    var currentPost = $(this)
+  // This function figures out which confession we want to edit and takes it to the appropriate url
+  function handleConfessionEdit() {
+    var currentConfession = $(this)
       .parent()
       .parent()
-      .data("post");
-    window.location.href = "/cms?post_id=" + currentPost.id;
+      .data("confession");
+    window.location.href = "/cms?confession_id=" + currentConfession.id;
   }
 
-  // This function displays a message when there are no posts
+  // This function displays a message when there are no confessions
   function displayEmpty(id) {
     var query = window.location.search;
     var partial = "";
     if (id) {
-      partial = " for Author #" + id;
+      partial = " for User #" + id;
     }
     blogContainer.empty();
     var messageH2 = $("<h2>");
     messageH2.css({ "text-align": "center", "margin-top": "50px" });
-    // messageH2.html("No posts yet" + partial + ", navigate <a href='/cms" + query +
-    // "'>here</a> in order to get started.");
+    messageH2.html("No confessions yet" + partial + ", navigate <a href='/cms" + query +
+    "'>here</a> in order to get started.");
     blogContainer.append(messageH2);
   }
 
 });
+ 
